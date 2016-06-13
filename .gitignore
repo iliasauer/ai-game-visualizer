@@ -1,0 +1,16 @@
+# IntelliJ project files
+.idea
+*.ipr
+*.iws
+out
+gen
+
+# Gradle template
+.gradle
+build
+
+logs
+
+!gradle-wrapper.jar
+!gradlew
+!gradlew.bat

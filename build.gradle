@@ -1,0 +1,22 @@
+version = '1.0'
+description = 'an educational ai game - visualizer'
+
+apply plugin: 'java'
+
+repositories {
+        mavenCentral()
+    }
+
+dependencies {
+
+    compile 'org.eclipse.jetty:jetty-server:9.3.9.M1'
+    compile 'org.eclipse.jetty:jetty-webapp:9.3.9.M1'
+    compile 'org.eclipse.jetty:jetty-annotations:9.3.9.M1'
+    compile 'org.eclipse.jetty:jetty-plus:9.3.9.M1'
+
+    testCompile 'junit:junit:4.12'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = "2.12"
+}
