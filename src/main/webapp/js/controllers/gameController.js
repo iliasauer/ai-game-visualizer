@@ -134,23 +134,48 @@ define([
             return "[name='" + name + "']";
         }
 
-        const figureColors = ['red', 'blue', 'green', 'yellow'];
+        const figureColors = ['green', 'yellow', 'blue', 'red'];
+
+        // function getColor() {
+        //     const index = Math.floor(Math.random() * figureColors.length);
+        //     const color = figureColors[index];
+        //     figureColors.splice(index, 1);
+        //     return color;
+        // }
 
         function getColor() {
-            const index = Math.floor(Math.random() * figureColors.length);
-            const color = figureColors[index];
-            figureColors.splice(index, 1);
-            return color;
+            return figureColors.pop();
+        }
+
+        function getPosition(elementName) {
+            var element = cy.elements(nameSelector(elementName))[0];
+            if (element === undefined) {
+                elementName = elementName.split('+').reverse().join('+');
+                element = cy.elements(nameSelector(elementName))[0];
+            }
+            var x, y;
+            if (element.isEdge()) {
+                const nodes = element.connectedNodes();
+                const node1 = nodes[0];
+                const node2 = nodes[1];
+                x = (node1.position('x') + node2.position('x')) / 2;
+                y = (node1.position('y') + node2.position('y')) / 2;
+            } else {
+                x = element.position('x');
+                y = element.position('y');
+            }
+            return {
+                x: x,
+                y: y
+            }
         }
 
         function addPlayerFigure(playerName, startNodeName) {
-            const startNode = cy.nodes(nameSelector(startNodeName))[0];
-            const x = startNode.position('x');
-            const y = startNode.position('y');
+            const position = getPosition(startNodeName);
             const playerFigure = cy.add({
                 group: "nodes",
                 data: { id: playerName },
-                position: { x: x, y: y },
+                position: { x: position.x, y: position.y },
                 classes: 'upperElement'
             });
             const figureColor = getColor();
@@ -159,24 +184,9 @@ define([
         }
 
         function movePlayerFigure(playerName, aimElementName) {
-            var aimElement = cy.elements(nameSelector(aimElementName))[0];
-            if (aimElement === undefined) {
-                aimElementName = aimElementName.split('+').reverse().join('+');
-                aimElement = cy.elements(nameSelector(aimElementName))[0];
-            }
-            var x, y;
-            if (aimElement.isEdge()) {
-                const nodes = aimElement.connectedNodes();
-                const node1 = nodes[0];
-                const node2 = nodes[1];
-                x = (node1.position('x') + node2.position('x')) / 2;
-                y = (node1.position('y') + node2.position('y')) / 2;
-            } else {
-                x = aimElement.position('x');
-                y = aimElement.position('y');
-            }
+            const position = getPosition(aimElementName);
             cy.$('#' + playerName).animate({
-                position: { x: x, y: y }
+                position: { x: position.x, y: position.y }
             }, {
                 duration: 100
             });
