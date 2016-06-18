@@ -215,19 +215,19 @@ define([
             }
             const playerFigure = cy.$('#' + playerName);
             if (!endFlag) {
-                addTip(playerFigure, message);
+                const tip = addTip(playerFigure, playerName + ': ' + message, 2000);
                 setTimeout(function () {
-                    playerFigure.qtip('api').destroy();
-                }, 1500);
+                    tip.qtip('api').destroy();
+                }, 1200);
             } else {
                 setTimeout(function () {
-                    addTip(playerFigure, message);
-                }, 500)
+                    addTip(playerFigure, playerName + ': ' + message, 1000000);
+                }, 400)
             }
         }
 
-        function addTip(element, message) {
-            element.qtip({
+        function addTip(element, message, hideDelay) {
+            return element.qtip({
                 content: {
                     text: message
                 },
@@ -236,7 +236,8 @@ define([
                     solo: false // hides all others qtips when shown
                 },
                 hide: {
-                    event: false
+                    event: false,
+                    delay: hideDelay
                 },
                 // we want to position my qtip {my} corner at the {at} of my target
                 position: {
