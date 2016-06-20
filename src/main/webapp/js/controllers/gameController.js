@@ -216,9 +216,7 @@ define([
             const playerFigure = cy.$('#' + playerName);
             if (!endFlag) {
                 const tip = addTip(playerFigure, playerName + ': ' + message, 2000);
-                setTimeout(function () {
-                    tip.qtip('api').destroy();
-                }, 1200);
+                tip.qtip('api').destroy(300);
             } else {
                 setTimeout(function () {
                     addTip(playerFigure, playerName + ': ' + message, 1000000);
