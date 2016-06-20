@@ -83,12 +83,16 @@ define([
                     solo: false // hides all others qtips when shown
                 },
                 hide: {
-                    event: false
+                    event: false,
+                    cyViewport: false
                 },
                 // we want to position my qtip {my} corner at the {at} of my target
                 position: {
                     my: 'top center',
-                    at: 'bottom center'
+                    at: 'bottom center',
+                    adjust: {
+                        cyViewport: true
+                    }
                 },
                 style: {
                     classes: 'qtip-bootstrap',
@@ -113,12 +117,16 @@ define([
                     solo: false // hides all others qtips when shown
                 },
                 hide: {
-                    event: false
+                    event: false,
+                    cyViewport: false
                 },
                 // we want to position my qtip {my} corner at the {at} of my target
                 position: {
                     my: 'top center',
-                    at: 'bottom center'
+                    at: 'bottom center',
+                    adjust: {
+                        cyViewport: true
+                    }
                 },
                 style: {
                     classes: 'qtip-bootstrap',
