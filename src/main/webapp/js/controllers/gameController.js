@@ -223,12 +223,14 @@ define([
             }
             const playerFigure = cy.$('#' + playerName);
             if (!endFlag) {
-                const tip = addTip(playerFigure, playerName + ': ' + message, 2000);
-                tip.qtip('api').destroy(300);
+                addTip(playerFigure, message);
+                setTimeout(function () {
+                    playerFigure.qtip('api').destroy();
+                }, 1500);
             } else {
                 setTimeout(function () {
-                    addTip(playerFigure, playerName + ': ' + message, 1000000);
-                }, 400)
+                    addTip(playerFigure, message);
+                }, 500)
             }
         }
 
